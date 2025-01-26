@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donor Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        header {
+            background: #333;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: #555;
+            border-radius: 5px;
+        }
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        input[type="number"], input[type="submit"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        input[type="number"] {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        input[type="submit"] {
+            background: #ff7e5f;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #feb47b;
+        }
+        .prediction {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .section {
+            width: 100%;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            opacity: 0; /* Initially hidden */
+            visibility: hidden; /* Initially hidden */
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+        #about {
+            background: #ff7e5f; /* About section background */
+        }
+        #services {
+            background: #6a82fb; /* Services section background */
+        }
+        #history {
+            background: #fc5c7d; /* History section background */
+        }
+        #contact {
+            background: #feb47b; /* Contact section background */
+        }
+        footer {
+            background: #333;
+            text-align: center;
+            padding: 10px 20px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blood Donor Prediction</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#history">History</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div id="home" class="main-content">
+        <div class="container">
+            <h1>Predict Blood Donor</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="monetary">Monetary:</label>
+                <input type="number" id="monetary" name="monetary" required><br><br>
+                <label for="recency">Recency:</label>
+                <input type="number" id="recency" name="recency" required><br><br>
+                <label for="months">Months Since Last Donation:</label>
+                <input type="number" id="months" name="months" required><br><br>
+                <label for="frequency">Frequency:</label>
+                <input type="number" id="frequency" name="frequency" required><br><br>
+                <input type="submit" value="Predict">
+            </form>
+            {% if prediction %}
+                <div class="prediction">Prediction: {{ prediction }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="about" class="section">
+        <h2>About Us</h2>
+        <p>Welcome to the Blood Donor Prediction platform. Our mission is to help healthcare professionals and organizations efficiently predict and manage blood donations.</p>
+        <p>Using advanced machine learning algorithms, we provide accurate predictions to ensure a stable and sufficient blood supply. Our platform is designed to be user-friendly and reliable, aiding in life-saving efforts worldwide.</p>
+    </div>
+    <div id="services" class="section">
+        <h2>Our Services</h2>
+        <p>We offer a range of services to support blood donation centers and healthcare providers.</p>
+        <ul>
+            <li>Blood Donation Prediction</li>
+            <li>Donor Management System</li>
+            <li>Data Analytics and Reporting</li>
+            <li>Personalized Donor Outreach</li>
+        </ul>
+    </div>
+    <div id="history" class="section">
+        <h2>Our History</h2>
+        <p>Since our inception, we have been dedicated to improving blood donation processes. Our journey started with a small team of data scientists and healthcare professionals who saw the potential of data-driven solutions in saving lives.</p>
+        <p>Over the years, we have grown into a trusted partner for numerous blood donation centers and healthcare organizations. Our commitment to innovation and excellence drives us to continually enhance our platform.</p>
+    </div>
+    <div id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feedback, or would like to learn more about our services, please feel free to reach out to us.</p>
+        <p>Email: info@blooddonorprediction.com</p>
+        <p>Phone: +123-456-7890</p>
+    </div>
+    <footer>
+        &copy; 2024 Blood Donor Prediction. All rights reserved.
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll(".section");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.visibility = 'visible';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
